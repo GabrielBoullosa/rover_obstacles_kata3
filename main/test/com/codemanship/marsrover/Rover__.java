@@ -12,7 +12,7 @@ public class Rover__ {
     @Test
     public void could_turn_left() {
         Rover rover = new Rover(North, new Rover.Position(3, 3));
-        //rover.go(Left);
+        rover.go(Left);
         assertThat(rover.heading()).isEqualTo(West);
         assertThat(rover.position()).isEqualTo(new Rover.Position(3,3));
     }

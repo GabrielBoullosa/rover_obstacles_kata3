@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class Rover {
 
-	private Heading heading;
-	private Position position;
+	private static Heading heading;
+	private static Position position;
 
 	public Rover(String facing, int x, int y) {
 	}
@@ -41,6 +41,28 @@ public class Rover {
 		}
 
 		Map<Order, Action> actions = new HashMap<>();
+		{
+			actions.put(Order.Forward, this::forward);
+			actions.put(Order.Backward, this::backward);
+			actions.put(Order.Left, this::turnLeft);
+			actions.put(Order.Right, this::turnRight);
+		}
+
+		private void forward() {
+			position.forward();
+		}
+
+		private void backward() {
+			position.backward();
+		}
+
+		private void turnLeft() {
+			heading.turnLeft();
+		}
+
+		private void turnRight() {
+			heading.turnRight();
+		}
 
 		public interface Action {
 			void execute();
@@ -51,7 +73,9 @@ public class Rover {
 		}
 
 		public void go(Order... orders){
+			for (Order order: orders) {
 
+			}
 		}
 
 		public Position forward(Heading heading) {
