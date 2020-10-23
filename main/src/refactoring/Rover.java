@@ -1,6 +1,12 @@
 package refactoring;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Rover {
+
+	private Heading heading;
+	private Position position;
 
 	public Rover(String facing, int x, int y) {
 	}
@@ -8,42 +14,61 @@ public class Rover {
 	public Rover(Heading heading, int x, int y) {
 	}
 
+	public Rover(Heading heading, Position position) {
+		this.heading = heading;
+		this.position = position;
+	}
+
+	public Heading heading() {
+		return heading;
+	}
+
+	public Position position() {
+		return position;
+	}
+
 	public static class Position {
-		private final int x;
-		private final int y;
+		private int x;
+		private int y;
 
 		public Position(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
 
+		public enum Order {
+			Forward, Backward, Left, Right;
+		}
+
+		Map<Order, Action> actions = new HashMap<>();
+
+		public interface Action {
+			void execute();
+		}
+
+		public void go(String instructions){
+
+		}
+
+		public void go(Order... orders){
+
+		}
+
 		public Position forward(Heading heading) {
-			switch (heading) {
-				case North:
-					return new Position(x, y + 1);
-				case South:
-					return new Position(x, y - 1);
-				case East:
-					return new Position(x + 1, y);
-				case West:
-					return new Position(x - 1 , y);
-			}
-			return new Position(x, y);
+			if(heading == Heading.North) y++;
+			if(heading == Heading.South) y--;
+			if(heading == Heading.East) x++;
+			if(heading == Heading.West) x--;
+			return this;
 		}
 
 		public Position backward(Heading heading) {
-			switch (heading) {
-				case North:
-					return new Position(x, y - 1);
-				case South:
-					return new Position(x, y + 1);
-				case East:
-					return new Position(x - 1, y);
-				case West:
-					return new Position(x + 1 , y);
-			}
-			return new Position(x, y);
+			return forward(oposite(heading));
 		}
+
+			public Heading oposite(Heading heading) {
+				return heading.turnLeft().turnLeft();
+			}
 
 		@Override
 		public boolean equals(Object object) {
