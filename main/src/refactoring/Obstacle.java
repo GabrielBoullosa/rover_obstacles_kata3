@@ -8,11 +8,11 @@ public class Obstacle {
     }
 
     public int dimensionX() {
-        return 0;
+        return dimensions.x_length();
     }
 
     public int dimensionY() {
-        return 0;
+        return dimensions.y_length();
     }
 
     public static class Dimensions {
@@ -24,5 +24,12 @@ public class Obstacle {
             this.y_length = y_length;
         }
 
+        public int x_length() {
+            return x_length;
+        }
+
+        public int y_length() {
+            return y_length;
+        }
     }
 }
