@@ -15,6 +15,10 @@ public class Obstacle {
         return dimensions.y_length();
     }
 
+    public String dimensions() {
+        return null;
+    }
+
     public static class Dimensions {
         private int x_length;
         private int y_length;
