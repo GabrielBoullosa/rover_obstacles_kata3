@@ -1,17 +1,24 @@
 package refactoring;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 public class Rover {
 
-	private static Heading heading;
-	private static Position position;
+	private Heading heading;
+	private Position position;
 
 	public Rover(String facing, int x, int y) {
+		heading = Heading.of(facing);
+		position = new Position(x,y);
 	}
 
 	public Rover(Heading heading, int x, int y) {
+		this.heading = heading;
+		position = new Position(x,y);
 	}
 
 	public Rover(Heading heading, Position position) {
@@ -27,6 +34,50 @@ public class Rover {
 		return position;
 	}
 
+
+	public enum Order {
+		Forward, Backward, Left, Right;
+
+		public static Order of(String label) {
+			return of(label.charAt(0));
+		}
+
+		public static Order of(char label) {
+			if (label == 'F') return Forward;
+			if (label == 'B') return Backward;
+			if (label == 'L') return Left;
+			if (label == 'R') return Right;
+			return null;
+		}
+	}
+
+	Map<Order, Action> actions = new HashMap<>();
+	{
+		actions.put(Order.Forward, () -> position = position.forward(heading));
+		actions.put(Order.Backward, () -> position = position.backward(heading));
+		actions.put(Order.Left, () -> heading = heading.turnLeft());
+		actions.put(Order.Right, () -> heading = heading.turnRight());
+	}
+
+	@FunctionalInterface
+	public interface Action {
+		void execute();
+	}
+
+	public void go(String instructions){
+		Stream<Order> orders = Arrays.stream(instructions.split("")).map(Order::of).filter(Objects::nonNull);
+		orders.forEach(order -> actions.get(order).execute());
+	}
+
+	public void go(Order... orders){
+		for (Order order: orders) execute(order);
+	}
+
+	private void execute(Order order) {
+		actions.get(order).execute();
+	}
+
+
 	public static class Position {
 		private int x;
 		private int y;
@@ -34,48 +85,6 @@ public class Rover {
 		public Position(int x, int y) {
 			this.x = x;
 			this.y = y;
-		}
-
-		public enum Order {
-			Forward, Backward, Left, Right;
-		}
-
-		Map<Order, Action> actions = new HashMap<>();
-		{
-			actions.put(Order.Forward, this::forward);
-			actions.put(Order.Backward, this::backward);
-			actions.put(Order.Left, this::turnLeft);
-			actions.put(Order.Right, this::turnRight);
-		}
-
-		private void forward() {
-			position.forward();
-		}
-
-		private void backward() {
-			position.backward();
-		}
-
-		private void turnLeft() {
-			heading.turnLeft();
-		}
-
-		private void turnRight() {
-			heading.turnRight();
-		}
-
-		public interface Action {
-			void execute();
-		}
-
-		public void go(String instructions){
-
-		}
-
-		public void go(Order... orders){
-			for (Order order: orders) {
-
-			}
 		}
 
 		public Position forward(Heading heading) {

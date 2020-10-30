@@ -4,7 +4,6 @@ import org.junit.Test;
 import refactoring.Rover.Heading;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 import static refactoring.Rover.Heading.*;
 
 public class Heading_ {
