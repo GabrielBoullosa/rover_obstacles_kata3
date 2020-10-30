@@ -16,7 +16,7 @@ public class Obstacle {
     }
 
     public String dimensions() {
-        return null;
+        return dimensions.toString();
     }
 
     public static class Dimensions {
@@ -34,6 +34,12 @@ public class Obstacle {
 
         public int y_length() {
             return y_length;
+        }
+
+        @Override
+        public String toString() {
+            return "El obstaculo tiene una dimensión de " + x_length
+                    + "x" + y_length;
         }
     }
 }

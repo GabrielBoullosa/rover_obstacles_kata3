@@ -13,6 +13,6 @@ public class ObstacleRover_ {
         assertThat(obstacle.dimensionX()).isEqualTo(3);
         assertThat(obstacle.dimensionY()).isEqualTo(1);
         assertThat(obstacle.dimensions()).isEqualTo(new Obstacle.Dimensions(3, 1).toString());
-
+        assertThat(new Obstacle(5, 2).dimensions()).isEqualTo(new Obstacle.Dimensions(5, 2).toString());
     }
 }
