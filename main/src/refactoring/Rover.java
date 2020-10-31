@@ -77,7 +77,6 @@ public class Rover {
 		actions.get(order).execute();
 	}
 
-
 	public static class Position {
 		private int x;
 		private int y;
@@ -99,9 +98,9 @@ public class Rover {
 			return forward(oposite(heading));
 		}
 
-			public Heading oposite(Heading heading) {
-				return heading.turnLeft().turnLeft();
-			}
+		public Heading oposite(Heading heading) {
+			return heading.turnLeft().turnLeft();
+		}
 
 		@Override
 		public boolean equals(Object object) {
@@ -117,7 +116,6 @@ public class Rover {
 		}
 
 	}
-
 
 	public enum Heading {
 		North, East, South, West;
@@ -147,7 +145,6 @@ public class Rover {
 		}
 
 	}
-
 
 }
 
