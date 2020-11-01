@@ -27,13 +27,15 @@ public class Obstacle {
 
     public String dimensions() { return dimensions.toString(); }
 
+    private int positionX() { return position.x_position(); }
+
+    private int positionY() { return position.y_position(); }
+
     public String position() { return position.toString(); }
 
     public Position finalPosition() { return new Position(dimensionX()+positionX()-1,dimensionY()+positionY()-1); }
 
-    private int positionX() { return position.x_position(); }
 
-    private int positionY() { return position.y_position(); }
 
 
     public static class Dimensions {
