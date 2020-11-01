@@ -62,5 +62,9 @@ public class Obstacle {
             this.y = y;
         }
 
+        @Override
+        public String toString() {
+            return "The obstacle position is " + x + " " + y;
+        }
     }
 }
