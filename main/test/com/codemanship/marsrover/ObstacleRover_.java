@@ -19,7 +19,7 @@ public class ObstacleRover_ {
     @Test
     public void could_create_obstacles_with_an_position() {
         Obstacle obstacle = new refactoring.Obstacle(3, 1, new Obstacle.Position(0,0));
-        assertThat(obstacle.position()).isEqualTo(new Obstacle.Position(0, 0).toString()k);
+        assertThat(obstacle.position()).isEqualTo(new Obstacle.Position(0, 0).toString());
 
     }
 }
