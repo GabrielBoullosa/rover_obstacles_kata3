@@ -74,12 +74,8 @@ public class Obstacle {
             return "The obstacle position is " + x + " " + y;
         }
 
-        public int x_position() {
-            return x;
-        }
+        public int x_position() { return x; }
 
-        public int y_position() {
-            return y;
-        }
+        public int y_position() { return y; }
     }
 }
