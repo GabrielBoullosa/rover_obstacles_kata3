@@ -22,4 +22,9 @@ public class ObstacleRover_ {
         assertThat(new Obstacle(5, 2, 3, 3).position()).isEqualTo(new Obstacle.Position(3, 3).toString());
         assertThat(new Obstacle(new Obstacle.Dimensions(1, 1), 1, 2).position()).isEqualTo(new Obstacle.Position(1, 2).toString());
     }
+    @Test
+    public void could_have_obstacle_positions_with_his_dimension_associated() {
+        assertThat(new Obstacle(3, 1, new Obstacle.Position(0,0)).position()).isEqualTo(new Obstacle.Position(0, 0).toString());
+        assertThat(new Obstacle(3, 1, new Obstacle.Position(0,0)).finalPosition().toString()).isEqualTo(new Obstacle.Position(2, 0).toString());
+    }
 }

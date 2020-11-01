@@ -29,6 +29,13 @@ public class Obstacle {
 
     public String position() { return position.toString(); }
 
+    public Position finalPosition() { return new Position(dimensionX()+positionX()-1,dimensionY()+positionY()-1); }
+
+    private int positionX() { return position.x_position(); }
+
+    private int positionY() { return position.y_position(); }
+
+
     public static class Dimensions {
         private int x_length;
         private int y_length;
@@ -65,6 +72,14 @@ public class Obstacle {
         @Override
         public String toString() {
             return "The obstacle position is " + x + " " + y;
+        }
+
+        public int x_position() {
+            return x;
+        }
+
+        public int y_position() {
+            return y;
         }
     }
 }
