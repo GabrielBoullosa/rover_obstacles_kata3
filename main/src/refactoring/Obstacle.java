@@ -2,6 +2,7 @@ package refactoring;
 
 public class Obstacle {
     private Dimensions dimensions;
+    private Position position;
 
     public Obstacle(int x, int y) {
         dimensions = new Dimensions(x, y);
@@ -41,5 +42,29 @@ public class Obstacle {
             return "El obstaculo tiene una dimensión de " + x_length
                     + "x" + y_length;
         }
+    }
+
+    public static class Position {
+        private int x;
+        private int y;
+
+        public Position(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            return isSameClass(object) && equals((Obstacle.Position) object);
+        }
+
+        private boolean equals(Obstacle.Position position) {
+            return position == this || (x == position.x && y == position.y);
+        }
+
+        private boolean isSameClass(Object object) {
+            return object != null && object.getClass() == Rover.Position.class;
+        }
+
     }
 }
