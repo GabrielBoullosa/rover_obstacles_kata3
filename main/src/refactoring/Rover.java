@@ -1,29 +1,30 @@
 package refactoring;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class Rover {
 
 	private Heading heading;
 	private Position position;
+	private ArrayList<Obstacle> obstacles;
 
 	public Rover(String facing, int x, int y) {
 		heading = Heading.of(facing);
 		position = new Position(x,y);
+		obstacles = new ArrayList<>();
 	}
 
 	public Rover(Heading heading, int x, int y) {
 		this.heading = heading;
 		position = new Position(x,y);
+		obstacles = new ArrayList<>();
 	}
 
 	public Rover(Heading heading, Position position) {
 		this.heading = heading;
 		this.position = position;
+		obstacles = new ArrayList<>();
 	}
 
 	public Heading heading() {
@@ -32,6 +33,13 @@ public class Rover {
 
 	public Position position() {
 		return position;
+	}
+
+	public void obstacleAdd(Obstacle obstacle) {
+	}
+
+	public Obstacle Obstacle(int i) {
+		return null;
 	}
 
 
@@ -95,10 +103,10 @@ public class Rover {
 		}
 
 		public Position backward(Heading heading) {
-			return forward(oposite(heading));
+			return forward(opposite(heading));
 		}
 
-		public Heading oposite(Heading heading) {
+		public Heading opposite(Heading heading) {
 			return heading.turnLeft().turnLeft();
 		}
 
