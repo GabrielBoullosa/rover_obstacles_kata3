@@ -35,13 +35,9 @@ public class Rover {
 		return position;
 	}
 
-	public void obstacleAdd(Obstacle obstacle) {
-		obstacles.add(obstacle);
-	}
+	public void obstacleAdd(Obstacle obstacle) { obstacles.add(obstacle); }
 
-	public Obstacle Obstacle(int index) {
-		return obstacles.get(index);
-	}
+	public Obstacle Obstacle(int index) { return obstacles.get(index); }
 
 
 	public enum Order {
