@@ -36,10 +36,11 @@ public class Rover {
 	}
 
 	public void obstacleAdd(Obstacle obstacle) {
+		obstacles.add(obstacle);
 	}
 
-	public Obstacle Obstacle(int i) {
-		return null;
+	public Obstacle Obstacle(int index) {
+		return obstacles.get(index);
 	}
 
 
