@@ -1,6 +1,7 @@
 package refactoring;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class Rover {
@@ -39,6 +40,36 @@ public class Rover {
 
 	public Obstacle Obstacle(int index) { return obstacles.get(index); }
 
+	public boolean nextIsObstacle(Order order){
+		for (Obstacle o : obstacles)
+			if (order == Order.Forward && forwardObstacle(o)) return true;
+			else if (order == Order.Backward && backwardObstacle(o)) return true;
+			else if(order == Order.Left || order == Order.Right) break;
+		return false;
+	}
+
+	public boolean forwardObstacle(Obstacle o) {
+		if (heading == Heading.North && posInObstacleRange(o, 0, 1)) return true;
+		else if (heading == Heading.South && posInObstacleRange(o, 0, -1)) return true;
+		else if (heading == Heading.East && posInObstacleRange(o, 1, 0)) return true;
+		else if (heading == Heading.West && posInObstacleRange(o, -1, 0)) return true;
+		return false;
+	}
+
+	public boolean backwardObstacle(Obstacle o) {
+		if (heading == Heading.South && posInObstacleRange(o, 0, 1)) return true;
+		else if (heading == Heading.North && posInObstacleRange(o, 0, -1)) return true;
+		else if (heading == Heading.West && posInObstacleRange(o, 1, 0)) return true;
+		else if (heading == Heading.East && posInObstacleRange(o, -1, 0)) return true;
+		return false;
+	}
+
+	public boolean posInObstacleRange(Obstacle o, int xSum, int ySum){
+		if(o.positionY() <= (position.y + ySum) && (position.y + ySum) <= o.finalPositionY()
+		   && o.positionX() <= (position.x + xSum) && (position.x + xSum) <= o.finalPositionX())
+			return true;
+		return false;
+	}
 
 	public enum Order {
 		Forward, Backward, Left, Right;
@@ -71,11 +102,14 @@ public class Rover {
 
 	public void go(String instructions){
 		Stream<Order> orders = Arrays.stream(instructions.split("")).map(Order::of).filter(Objects::nonNull);
-		orders.forEach(order -> actions.get(order).execute());
+		orders.forEach(order -> { if(!nextIsObstacle(order)) actions.get(order).execute(); });
 	}
 
 	public void go(Order... orders){
-		for (Order order: orders) execute(order);
+		for (Order order: orders){
+			if(!nextIsObstacle(order))
+				execute(order);
+		}
 	}
 
 	private void execute(Order order) {
@@ -105,6 +139,13 @@ public class Rover {
 
 		public Heading opposite(Heading heading) {
 			return heading.turnLeft().turnLeft();
+		}
+
+		@Override
+		public String toString() {
+			return "Position: " +
+					"x=" + x +
+					", y=" + y ;
 		}
 
 		@Override

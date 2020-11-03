@@ -5,8 +5,8 @@ import refactoring.Obstacle;
 import refactoring.Rover;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static refactoring.Rover.Heading.North;
-import static refactoring.Rover.Order.Forward;
+import static refactoring.Rover.Heading.*;
+import static refactoring.Rover.Order.*;
 
 public class ObstacleRover_ {
 
@@ -34,14 +34,14 @@ public class ObstacleRover_ {
     @Test
     public void could_not_the_rover_move_if_forward_have_an_obstacle() {
         Obstacle obstacle1 = new Obstacle(1, 1, 1, 2); // (1, 2) -> (1, 2)
-        Obstacle obstacle2 = new Obstacle(2, 3, -2, -3); // (-1, -2) -> (0, 0)
+        Obstacle obstacle2 = new Obstacle(2, 3, -1, -2); // (-1, -2) -> (0, 0)
         Rover rover = new Rover("N", 1, 1);
         rover.obstacleAdd(obstacle1);
         rover.obstacleAdd(obstacle2);
         rover.go(Forward);
         assertThat(rover.position()).isEqualTo(new Rover.Position(1, 1));
         rover.go("BLF");
-        assertThat(rover.position()).isEqualTo(new Rover.Position(0, 1));
+        assertThat(rover.position()).isEqualTo(new Rover.Position(1, 0));
     }
 
 }
