@@ -44,4 +44,20 @@ public class ObstacleRover_ {
         assertThat(rover.position()).isEqualTo(new Rover.Position(1, 0));
     }
 
+    @Test
+    public void could_the_rover_go_around_the_obstacles() {
+        Obstacle obstacle1 = new Obstacle(1, 1, 1, 2); // (1, 2) -> (1, 2)
+        Obstacle obstacle2 = new Obstacle(2, 3, 3, 3); // (3, 3) -> (4, 5)
+        Rover rover = new Rover("N", 1, 1);
+        rover.obstacleAdd(obstacle1);
+        rover.obstacleAdd(obstacle2);
+        rover.go("RFLFFLFR"); //Avanzando hacia delante.
+        assertThat(rover.position()).isEqualTo(new Rover.Position(1, 3));
+        assertThat(rover.heading()).isEqualTo(North);
+        rover.go("LBB"); //Avanzando hacia atras.
+        assertThat(rover.position()).isEqualTo(new Rover.Position(2, 3)); //choca en la (3,3) por eso no llega.
+        rover.go("LBBBRBR"); //Avanzando hacia atras.
+        assertThat(rover.position()).isEqualTo(new Rover.Position(3, 6));
+        assertThat(rover.heading()).isEqualTo(North);
+    }
 }
