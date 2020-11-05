@@ -49,26 +49,16 @@ public class Rover {
 	}
 
 	public boolean forwardObstacle(Obstacle o) {
-		if (heading == Heading.North && posInObstacleRange(o, 0, 1)) return true;
-		else if (heading == Heading.South && posInObstacleRange(o, 0, -1)) return true;
-		else if (heading == Heading.East && posInObstacleRange(o, 1, 0)) return true;
-		else if (heading == Heading.West && posInObstacleRange(o, -1, 0)) return true;
-		return false;
+		return 	posInObstacleRange(o, heading.dx(), heading.dy());
 	}
 
 	public boolean backwardObstacle(Obstacle o) {
-		if (heading == Heading.South && posInObstacleRange(o, 0, 1)) return true;
-		else if (heading == Heading.North && posInObstacleRange(o, 0, -1)) return true;
-		else if (heading == Heading.West && posInObstacleRange(o, 1, 0)) return true;
-		else if (heading == Heading.East && posInObstacleRange(o, -1, 0)) return true;
-		return false;
+		return posInObstacleRange(o, -heading.dx(), -heading.dy());
 	}
 
 	public boolean posInObstacleRange(Obstacle o, int xSum, int ySum){
-		if(o.positionY() <= (position.y + ySum) && (position.y + ySum) <= o.finalPositionY()
-		   && o.positionX() <= (position.x + xSum) && (position.x + xSum) <= o.finalPositionX())
-			return true;
-		return false;
+		return o.positionY() <= (position.y + ySum) && (position.y + ySum) <= o.finalPositionY()
+				&& o.positionX() <= (position.x + xSum) && (position.x + xSum) <= o.finalPositionX();
 	}
 
 	public enum Order {
@@ -164,7 +154,22 @@ public class Rover {
 	}
 
 	public enum Heading {
-		North, East, South, West;
+		North(0,1), East(1,0), South(0,-1), West(-1,0);
+		private final int dx;
+		private final int dy;
+
+		Heading(int dx, int dy) {
+			this.dx = dx;
+			this.dy = dy;
+		}
+
+		public int dx() {
+			return dx;
+		}
+
+		public int dy() {
+			return dy;
+		}
 
 		public static Heading of(String label) {
 			return of(label.charAt(0));
