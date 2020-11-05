@@ -155,18 +155,17 @@ public class Rover {
 
 	public enum Heading {
 		North(0,1), East(1,0), South(0,-1), West(-1,0);
-		private final int dx;
-		private final int dy;
-
 		Heading(int dx, int dy) {
 			this.dx = dx;
 			this.dy = dy;
 		}
 
+		private final int dx;
 		public int dx() {
 			return dx;
 		}
 
+		private final int dy;
 		public int dy() {
 			return dy;
 		}
